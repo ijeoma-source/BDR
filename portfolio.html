@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Portfolio — Pipeline Generation & Outbound Systems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0B0E15;
+    --bg-2: #121620;
+    --bg-3: #181d28;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.14);
+    --teal: #00C896;
+    --teal-dim: rgba(0,200,150,0.12);
+    --teal-glow: rgba(0,200,150,0.08);
+    --amber: #F5A623;
+    --amber-dim: rgba(245,166,35,0.12);
+    --text: #E8EDF6;
+    --text-muted: #7A8499;
+    --text-dim: #4A5168;
+    --mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.25rem 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(11,14,21,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: 0.95rem;
+    color: var(--teal);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* SECTIONS */
+  section { padding: 7rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.72rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--teal);
+    margin-bottom: 0.75rem;
+  }
+
+  /* HERO */
+  .hero-wrap {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding-top: 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid {
+    position: absolute; inset: 0; opacity: 0.03;
+    background-image:
+      linear-gradient(var(--teal) 1px, transparent 1px),
+      linear-gradient(90deg, var(--teal) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; width: 100%; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: var(--mono); font-size: 0.72rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 1.5rem;
+    border: 1px solid rgba(0,200,150,0.25);
+    padding: 0.35rem 0.8rem; border-radius: 2px;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--teal); border-radius: 50%;
+  }
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 5.2rem);
+    font-weight: 800; line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  h1 em { font-style: normal; color: var(--teal); }
+  .hero-sub {
+    font-size: 1.1rem; color: var(--text-muted);
+    max-width: 560px; line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+  .hero-stats {
+    display: flex; flex-wrap: wrap; gap: 2.5rem;
+    margin-bottom: 3rem;
+    padding: 1.75rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .hstat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem; font-weight: 700;
+    color: var(--teal);
+  }
+  .hstat-label {
+    font-size: 0.78rem; color: var(--text-muted);
+    letter-spacing: 0.04em; margin-top: 0.1rem;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--teal); color: #0B0E15;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500; font-size: 0.9rem;
+    padding: 0.8rem 1.75rem; border-radius: 3px;
+    text-decoration: none; letter-spacing: 0.02em;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: transparent; color: var(--text);
+    font-weight: 400; font-size: 0.9rem;
+    padding: 0.8rem 1.5rem; border-radius: 3px;
+    text-decoration: none; letter-spacing: 0.02em;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--border-hover); color: var(--teal); }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+    align-items: start;
+  }
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 700; line-height: 1.1;
+    letter-spacing: -0.02em; margin-bottom: 1.25rem;
+  }
+  .about-body { color: var(--text-muted); line-height: 1.8; }
+  .about-body p { margin-bottom: 1rem; }
+  .about-body strong { color: var(--text); font-weight: 500; }
+  .about-cards { display: flex; flex-direction: column; gap: 0.75rem; }
+  .acard {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1rem 1.25rem;
+    transition: border-color 0.2s;
+  }
+  .acard:hover { border-color: var(--border-hover); }
+  .acard-role {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.88rem; font-weight: 600;
+    color: var(--text); margin-bottom: 0.2rem;
+  }
+  .acard-org { font-size: 0.78rem; color: var(--teal); font-family: var(--mono); letter-spacing: 0.04em; }
+  .acard-metric { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.35rem; }
+
+  /* CASE STUDIES */
+  .case-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem;
+  }
+  .case-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    transition: border-color 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .case-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--teal);
+    transition: height 0.3s ease;
+  }
+  .case-card:hover { border-color: var(--border-hover); }
+  .case-card:hover::before { height: 100%; }
+  .case-top {
+    display: flex; justify-content: space-between;
+    align-items: flex-start; flex-wrap: wrap; gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .case-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem; font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .case-org {
+    font-family: var(--mono); font-size: 0.72rem;
+    color: var(--teal); letter-spacing: 0.08em;
+    margin-top: 0.25rem;
+  }
+  .case-tag {
+    font-family: var(--mono); font-size: 0.68rem;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    background: var(--teal-dim); color: var(--teal);
+    padding: 0.3rem 0.7rem; border-radius: 2px;
+    white-space: nowrap;
+  }
+  .case-tag.amber {
+    background: var(--amber-dim); color: var(--amber);
+  }
+  .case-metrics {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem; margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+  .metric-item { text-align: center; }
+  .metric-num {
+    font-family: 'Syne', sans-serif; font-size: 1.6rem;
+    font-weight: 700; color: var(--teal);
+    display: block; line-height: 1.1;
+  }
+  .metric-num.amber { color: var(--amber); }
+  .metric-label {
+    font-size: 0.72rem; color: var(--text-muted);
+    letter-spacing: 0.04em; margin-top: 0.2rem;
+    display: block;
+  }
+  .case-breakdown { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
+  .cb-block h4 {
+    font-family: var(--mono); font-size: 0.68rem;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--text-dim); margin-bottom: 0.6rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .cb-block p, .cb-block li {
+    font-size: 0.85rem; color: var(--text-muted); line-height: 1.7;
+  }
+  .cb-block ul { padding-left: 1rem; }
+  .cb-block li { margin-bottom: 0.3rem; }
+  .cb-block strong { color: var(--text); font-weight: 500; }
+  .learning-block {
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem;
+    background: var(--amber-dim);
+    border-left: 2px solid var(--amber);
+    border-radius: 0 3px 3px 0;
+  }
+  .learning-block p {
+    font-size: 0.84rem; color: var(--text);
+    line-height: 1.65;
+  }
+  .learning-block .lb-label {
+    font-family: var(--mono); font-size: 0.65rem;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--amber); margin-bottom: 0.4rem;
+    display: block;
+  }
+  .gap-flag {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-family: var(--mono); font-size: 0.68rem;
+    color: var(--text-dim); border: 1px dashed var(--text-dim);
+    padding: 0.25rem 0.6rem; border-radius: 2px;
+    margin-top: 0.5rem;
+  }
+
+  /* OUTREACH */
+  .outreach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .msg-card {
+    background: var(--bg-2); border: 1px solid var(--border);
+    border-radius: 6px; overflow: hidden;
+  }
+  .msg-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
+  }
+  .msg-type {
+    font-family: var(--mono); font-size: 0.68rem;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--teal);
+  }
+  .msg-status {
+    font-family: var(--mono); font-size: 0.65rem;
+    color: var(--text-muted);
+  }
+  .msg-body { padding: 1.25rem; }
+  .msg-body p {
+    font-size: 0.84rem; color: var(--text-muted);
+    line-height: 1.75; white-space: pre-line;
+  }
+  .msg-note {
+    font-size: 0.75rem; color: var(--teal);
+    margin-top: 0.75rem; font-style: italic;
+    display: block;
+  }
+  .placeholder-card {
+    background: transparent;
+    border: 1px dashed var(--border);
+    border-radius: 6px;
+    padding: 2rem;
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; text-align: center; gap: 0.5rem;
+    min-height: 180px;
+  }
+  .placeholder-card p {
+    font-size: 0.8rem; color: var(--text-dim); line-height: 1.6;
+  }
+  .placeholder-icon { font-size: 1.5rem; opacity: 0.3; }
+
+  /* SYSTEM */
+  .system-flow {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 0; margin: 2rem 0; position: relative;
+  }
+  .flow-step {
+    padding: 1.5rem 1rem; text-align: center;
+    border: 1px solid var(--border);
+    position: relative; background: var(--bg-2);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .flow-step:not(:first-child) { border-left: none; }
+  .flow-step:hover { background: var(--bg-3); border-color: var(--border-hover); }
+  .flow-step:hover .flow-num { color: var(--teal); }
+  .flow-num {
+    font-family: 'Syne', sans-serif; font-size: 1.5rem;
+    font-weight: 700; color: var(--text-dim);
+    display: block; margin-bottom: 0.5rem;
+    transition: color 0.2s;
+  }
+  .flow-title {
+    font-family: var(--mono); font-size: 0.65rem;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--teal); margin-bottom: 0.5rem;
+  }
+  .flow-body { font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; }
+  .arrow-connector {
+    display: none;
+  }
+
+  .tools-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.75rem; margin-top: 2rem;
+  }
+  .tool-pill {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-2); border: 1px solid var(--border);
+    border-radius: 4px; font-size: 0.82rem; color: var(--text-muted);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .tool-pill:hover { border-color: var(--teal); color: var(--text); }
+  .tool-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--teal); flex-shrink: 0;
+  }
+  .tool-dot.amber { background: var(--amber); }
+  .tool-dot.dim { background: var(--text-dim); }
+  .tool-cat {
+    font-family: var(--mono); font-size: 0.65rem;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--text-dim); margin-bottom: 0.75rem;
+  }
+  .tools-category { margin-bottom: 1.75rem; }
+
+  /* METRICS DASHBOARD */
+  .dash-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
+  }
+  .dash-card {
+    background: var(--bg-2); border: 1px solid var(--border);
+    border-radius: 6px; padding: 1.75rem;
+  }
+  .dash-card h3 {
+    font-family: 'Syne', sans-serif; font-size: 0.9rem;
+    font-weight: 600; color: var(--text-muted);
+    margin-bottom: 1.25rem; letter-spacing: 0.02em;
+  }
+  .dash-row {
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .dash-label { font-size: 0.8rem; color: var(--text-muted); flex: 1; }
+  .dash-bar-wrap {
+    flex: 2; height: 4px; background: var(--border);
+    border-radius: 2px; overflow: hidden;
+  }
+  .dash-bar { height: 100%; border-radius: 2px; background: var(--teal); }
+  .dash-bar.amber { background: var(--amber); }
+  .dash-val {
+    font-family: var(--mono); font-size: 0.78rem;
+    color: var(--text); min-width: 2.5rem; text-align: right;
+  }
+  .kpi-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  }
+  .kpi-item { text-align: center; }
+  .kpi-num {
+    font-family: 'Syne', sans-serif; font-size: 1.8rem;
+    font-weight: 700; color: var(--teal); display: block;
+  }
+  .kpi-label { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.1rem; }
+
+  /* CONTACT */
+  .contact-inner {
+    max-width: 600px; margin: 0 auto; text-align: center;
+  }
+  .contact-inner h2 { margin-bottom: 1rem; }
+  .contact-inner .sub {
+    font-size: 1rem; color: var(--text-muted);
+    margin-bottom: 2.5rem; line-height: 1.7;
+  }
+  .contact-links {
+    display: flex; flex-wrap: wrap;
+    justify-content: center; gap: 1rem;
+  }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--border); border-radius: 3px;
+    text-decoration: none; color: var(--text);
+    font-size: 0.85rem;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .contact-link:hover { border-color: var(--teal); color: var(--teal); }
+  .contact-link .cl-label {
+    font-family: var(--mono); font-size: 0.65rem;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--text-dim); margin-right: 0.25rem;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.75rem 2rem;
+    text-align: center;
+    font-family: var(--mono); font-size: 0.7rem;
+    color: var(--text-dim); letter-spacing: 0.04em;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .case-breakdown { grid-template-columns: 1fr; }
+    .outreach-grid { grid-template-columns: 1fr; }
+    .system-flow { grid-template-columns: 1fr 1fr; }
+    .dash-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hero-stats { gap: 1.5rem; }
+  }
+  @media (max-width: 480px) {
+    .system-flow { grid-template-columns: 1fr; }
+    .case-metrics { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">SDR Portfolio</a>
+  <ul class="nav-links">
+    <li><a href="#cases">Case Studies</a></li>
+    <li><a href="#outreach">Outreach</a></li>
+    <li><a href="#system">System</a></li>
+    <li><a href="#metrics">Metrics</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero-wrap">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Available for outbound &amp; pipeline roles</div>
+    <h1>I build outbound systems<br>that <em>fill pipelines.</em></h1>
+    <p class="hero-sub">
+      3+ years generating qualified pipeline across international B2B and B2C markets.
+      Not just outreach — repeatable systems: ICP research, signal-based targeting,
+      automated sequences, and closed revenue.
+    </p>
+    <div class="hero-stats">
+      <div>
+        <div class="hstat-num">12,000+</div>
+        <div class="hstat-label">Qualified leads generated</div>
+      </div>
+      <div>
+        <div class="hstat-num">400%</div>
+        <div class="hstat-label">Pipeline growth, 3 months</div>
+      </div>
+      <div>
+        <div class="hstat-num">120+</div>
+        <div class="hstat-label">Inbound sign-ups, 2 weeks</div>
+      </div>
+      <div>
+        <div class="hstat-num">90%</div>
+        <div class="hstat-label">B2B partner retention</div>
+      </div>
+    </div>
+    <div class="hero-ctas">
+      <a href="#cases" class="btn-primary">View Case Studies →</a>
+      <a href="#contact" class="btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About</div>
+  <div class="about-grid">
+    <div>
+      <h2>Revenue operator. Systems builder.</h2>
+      <div class="about-body">
+        <p>
+          I don't just send cold emails — I build the systems behind them.
+          From <strong>ICP mapping and signal-based community sourcing</strong> to
+          automated nurture sequences and qualification frameworks, I design every
+          step of the pipeline from first contact to closed deal.
+        </p>
+        <p>
+          My work spans international markets — East Africa, West Africa, Europe —
+          across organizations at different stages: growth-stage startups, regional
+          branches, and enterprise partnerships. In every context, the goal is the
+          same: <strong>repeatable, measurable pipeline.</strong>
+        </p>
+        <p>
+          I use data to find the right people, craft messages that hit real pain points,
+          and automate the follow-through so nothing leaks.
+        </p>
+      </div>
+    </div>
+    <div class="about-cards">
+      <div class="acard">
+        <div class="acard-role">Operations &amp; Sales Manager</div>
+        <div class="acard-org">AIESEC Rwanda</div>
+        <div class="acard-metric">Revived 5-year dormant pipeline · 15 paying customers · 120+ inbound sign-ups</div>
+      </div>
+      <div class="acard">
+        <div class="acard-role">Lead Generation Specialist</div>
+        <div class="acard-org">MyCofoundr.AI</div>
+        <div class="acard-metric">12,000+ qualified leads · LinkedIn + Slack outreach · founder roundtable booking</div>
+      </div>
+      <div class="acard">
+        <div class="acard-role">VP Sales Lead</div>
+        <div class="acard-org">AIESEC Enugu</div>
+        <div class="acard-metric">400% placement growth in 3 months · 10-person team · 30+ customers/year</div>
+      </div>
+      <div class="acard">
+        <div class="acard-role">Sales Specialist</div>
+        <div class="acard-org">AIESEC Stockholm</div>
+        <div class="acard-metric">90% B2B partner retention · European market management</div>
+      </div>
+      <div class="acard">
+        <div class="acard-role">Product Manager</div>
+        <div class="acard-org">Nanocodes</div>
+        <div class="acard-metric">₦3M–₦15M projects · 100% on-time delivery</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section id="cases">
+  <div class="case-header">
+    <div>
+      <div class="section-label">Case Studies</div>
+      <h2>Pipeline built from scratch.</h2>
+    </div>
+  </div>
+
+  <!-- CASE 1: AIESEC Rwanda -->
+  <div class="case-card">
+    <div class="case-top">
+      <div>
+        <div class="case-title">Reviving a 5-Year Dormant Pipeline</div>
+        <div class="case-org">AIESEC RWANDA · Operations &amp; Sales Manager</div>
+      </div>
+      <span class="case-tag">Outbound · Automation · B2C</span>
+    </div>
+    <div class="case-metrics">
+      <div class="metric-item">
+        <span class="metric-num">120+</span>
+        <span class="metric-label">Inbound sign-ups in 2 weeks</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-num">15</span>
+        <span class="metric-label">Paying customers from zero</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-num amber">50+</span>
+        <span class="metric-label">Warm leads still in pipeline</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-num">$0</span>
+        <span class="metric-label">Revenue before → $80–$140/customer</span>
+      </div>
+    </div>
+    <div class="case-breakdown">
+      <div class="cb-block">
+        <h4>Problem</h4>
+        <p>
+          AIESEC Rwanda had not generated paying customers for five years.
+          Existing application data existed but was unusable — no structured ICP, no active
+          pipeline, and a product (paid international volunteer placements, $80–$140) that
+          was being pitched to the wrong audience with the wrong message. An entire market
+          segment remained completely unexplored.
+        </p>
+      </div>
+      <div class="cb-block">
+        <h4>Strategy</h4>
+        <ul>
+          <li>Cleaned and re-segmented the historical application database</li>
+          <li>Built <strong>3 ICP segments</strong> from pattern analysis in prior application data</li>
+          <li>Identified a talent–opportunity mismatch in existing data and repositioned messaging accordingly</li>
+          <li>Used <strong>community signal sourcing</strong>: Kigali Talents, tech communities, LinkedIn groups</li>
+        </ul>
+      </div>
+      <div class="cb-block">
+        <h4>Execution</h4>
+        <ul>
+          <li>Built a <strong>discovery form</strong> with behavioral prompts to profile leads before calls</li>
+          <li>Wrote personalized outreach based on community signals — each message tied to specific pain points</li>
+          <li>Automated the post-form nurture sequence: <strong>Brevo (email) + Zapier (workflow triggers)</strong></li>
+          <li>Tracked pipeline in Google Sheets: responses, outreach status, calls booked, paid deals</li>
+          <li>Ran a full campaign targeting community members who had expressed interest in international opportunities</li>
+        </ul>
+      </div>
+      <div class="cb-block">
+        <h4>Results</h4>
+        <ul>
+          <li><strong>120+ inbound sign-ups</strong> within 2 weeks of campaign launch (August)</li>
+          <li><strong>6 paying customers</strong> in the first 2 months (first revenue in 5 years)</li>
+          <li><strong>15 total paying customers</strong> — 9 additional committed and converted in subsequent weeks</li>
+          <li><strong>50+ warm leads</strong> mapped and nurtured but not yet converted — live pipeline with defined next steps</li>
+        </ul>
+      </div>
+    </div>
+    <div class="learning-block">
+      <span class="lb-label">Learning</span>
+      <p>
+        A subset of leads dropped off at the form stage due to <strong>language barrier</strong> — form questions
+        written in English were misunderstood by French/Kinyarwanda-dominant prospects.
+        Fix: build localized form versions per language segment, and flag language preference
+        as a qualification criterion earlier in the outreach sequence.
+      </p>
+    </div>
+  </div>
+
+  <!-- CASE 2: MyCofoundr.AI -->
+  <div class="case-card">
+    <div class="case-top">
+      <div>
+        <div class="case-title">Generating 12,000+ Qualified Leads for an AI Startup</div>
+        <div class="case-org">MYCOFOUNDR.AI · Lead Generation Specialist</div>
+      </div>
+      <span class="case-tag">LinkedIn · Slack · B2B</span>
+    </div>
+    <div class="case-metrics">
+      <div class="metric-item">
+        <span class="metric-num">12,000+</span>
+        <span class="metric-label">Qualified leads generated</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-num">2</span>
+        <span class="metric-label">Primary channels (LinkedIn + Slack)</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-num amber">ICP</span>
+        <span class="metric-label">Segmented by founder stage + vertical</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-num">Calls</span>
+        <span class="metric-label">Booked via founder roundtables</span>
+      </div>
+    </div>
+    <div class="case-breakdown">
+      <div class="cb-block">
+        <h4>Context</h4>
+        <p>
+          MyCofoundr.AI connects early-stage founders with compatible co-founders.
+          The challenge: sourcing qualified founders actively seeking co-founder matches
+          at scale, across LinkedIn and Slack communities, without burning audiences.
+        </p>
+      </div>
+      <div class="cb-block">
+        <h4>Execution</h4>
+        <ul>
+          <li>Built detailed <strong>ICP frameworks</strong> segmented by founder stage, vertical, and co-founder need</li>
+          <li>Executed multi-channel outreach across <strong>LinkedIn and relevant Slack communities</strong></li>
+          <li>Deployed <strong>founder roundtables</strong> as a call-booking mechanism — positioned discovery as peer value, not a pitch</li>
+          <li>Built and iterated sequencing templates for both channels</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top: 1rem;">
+      <span class="gap-flag">⚑ You said: add conversion rate + calls booked + timeline when you have them</span>
+    </div>
+  </div>
+
+  <!-- CASE 3: AIESEC Enugu -->
+  <div class="case-card">
+    <div class="case-top">
+      <div>
+        <div class="case-title">400% Pipeline Growth in 90 Days</div>
+        <div class="case-org">AIESEC ENUGU · VP Sales Lead</div>
+      </div>
+      <span class="case-tag amber">Team Leadership · Sales Systems</span>
+    </div>
+    <div class="case-metrics">
+      <div class="metric-item">
+        <span class="metric-num">400%</span>
+        <span class="metric-label">Placement growth in 3 months</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-num">10</span>
+        <span class="metric-label">Person sales team led</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-num">30+</span>
+        <span class="metric-label">Customers delivered annually</span>
+      </div>
+    </div>
+    <div class="case-breakdown">
+      <div class="cb-block">
+        <h4>What I built</h4>
+        <ul>
+          <li>Designed and implemented a sales system from scratch for a 10-person team</li>
+          <li>Created training resources and playbooks for consistent execution</li>
+          <li>Built a partnership channel that delivered 30+ annual customers</li>
+        </ul>
+      </div>
+      <div class="cb-block">
+        <h4>Impact</h4>
+        <p>
+          Grew placements by <strong>400% within 3 months</strong> by restructuring
+          how the team sourced, qualified, and closed. Annual delivery of 30+ customers
+          via sustained partnership development.
+        </p>
+      </div>
+    </div>
+    <div style="margin-top: 1rem;">
+      <span class="gap-flag">⚑ You said: add specifics on which systems you built + what the team was doing before you joined</span>
+    </div>
+  </div>
+
+  <!-- CASE 4: Stockholm -->
+  <div class="case-card">
+    <div class="case-top">
+      <div>
+        <div class="case-title">90% B2B Partner Retention Across European Markets</div>
+        <div class="case-org">AIESEC STOCKHOLM · Sales Specialist</div>
+      </div>
+      <span class="case-tag">B2B · Account Management · Europe</span>
+    </div>
+    <div class="case-metrics">
+      <div class="metric-item">
+        <span class="metric-num">90%</span>
+        <span class="metric-label">B2B partner retention rate</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-num amber">EU</span>
+        <span class="metric-label">Multi-market relationship management</span>
+      </div>
+    </div>
+    <div class="cb-block" style="margin-top: 1rem;">
+      <p>
+        Managed B2B relationships with partners across European markets.
+        Maintained a <strong>90% retention rate</strong> through proactive stakeholder communication,
+        expectation management, and delivering on placement commitments.
+      </p>
+    </div>
+    <div style="margin-top: 1rem;">
+      <span class="gap-flag">⚑ You said: add number of partners managed + specific retention tactics used</span>
+    </div>
+  </div>
+</section>
+
+<!-- OUTREACH SAMPLES -->
+<section id="outreach">
+  <div class="section-label">Outreach Samples</div>
+  <h2>Messages that actually convert.</h2>
+  <p style="color: var(--text-muted); margin-bottom: 2.5rem; max-width: 560px;">
+    Outreach that works isn't generic — it's signal-based, ICP-specific, and built
+    around the prospect's actual context. Below are real-world examples and frameworks I use.
+  </p>
+  <div class="outreach-grid">
+
+    <!-- Community signal outreach -->
+    <div class="msg-card">
+      <div class="msg-header">
+        <span class="msg-type">LinkedIn · Community Signal Outreach</span>
+        <span class="msg-status">Used → AIESEC Rwanda campaign</span>
+      </div>
+      <div class="msg-body">
+        <p>Hi [Name],
+
+I noticed you mentioned in the Kigali Talents group that you're looking to build international experience in [their field].
+
+Most people in your position either wait for the "right time" or miss the window entirely. The people I've seen actually make it abroad don't wait — they use structured pathways.
+
+That's exactly what we facilitate at AIESEC: short-term international volunteer placements that give you real cross-border experience + a global network, in [timeframe].
+
+Worth a quick 15-minute call this week?</p>
+        <span class="msg-note">Signal used: community post indicating interest in international experience. Message opens with proof of attention, not a pitch.</span>
+      </div>
+    </div>
+
+    <!-- Discovery form follow-up -->
+    <div class="msg-card">
+      <div class="msg-header">
+        <span class="msg-type">Email · Post-Form Follow-Up</span>
+        <span class="msg-status">Automated via Brevo + Zapier</span>
+      </div>
+      <div class="msg-body">
+        <p>Hi [Name],
+
+Thanks for filling out our interest form — based on your answers, I can already see why an international placement makes sense for where you want to go.
+
+You mentioned [specific answer from form]. That's exactly the profile that fits well with our [Country/Program] opportunity.
+
+I'd love to walk you through it in detail and see if it's the right fit. Here's a link to book a 20-minute call: [Calendly link]
+
+Looking forward to it.</p>
+        <span class="msg-note">Personalised using data from the qualification form. Triggered automatically 30 mins post-submission via Zapier → Brevo sequence.</span>
+      </div>
+    </div>
+
+    <!-- LinkedIn founder outreach -->
+    <div class="msg-card">
+      <div class="msg-header">
+        <span class="msg-type">LinkedIn · Founder Outreach (MyCofoundr.AI)</span>
+        <span class="msg-status">Multi-channel sequence</span>
+      </div>
+      <div class="msg-body">
+        <p>Hi [Name],
+
+Saw you've been building [Company/Product] — impressive traction considering you're doing it solo.
+
+A lot of founders at your stage tell me the biggest bottleneck isn't the product, it's finding a co-founder who actually complements their gaps (not just someone who's "interested").
+
+We've built a matching system specifically for that. No spray-and-pray — it's structured, vetted, and founder-led.
+
+Would it be worth a 20-minute call to see if it's relevant for where you are right now?</p>
+        <span class="msg-note">ICP: solo founders at idea/pre-seed stage. Signal: recent LinkedIn activity showing they're building without co-founder.</span>
+      </div>
+    </div>
+
+    <!-- Placeholder -->
+    <div class="placeholder-card">
+      <div class="placeholder-icon">✉</div>
+      <p><strong style="color: var(--text-muted);">Add B2B Partner Outreach Sample</strong><br>
+      Drop your AIESEC Stockholm or Enugu partner outreach message here. I'll clean and format it.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- LEAD GENERATION SYSTEM -->
+<section id="system">
+  <div class="section-label">Lead Generation System</div>
+  <h2>The repeatable process.</h2>
+  <p style="color: var(--text-muted); margin-bottom: 2.5rem; max-width: 580px;">
+    Every campaign I run follows a structured system — not one-off outreach.
+    Here's the end-to-end framework I've applied across markets and verticals.
+  </p>
+
+  <div class="system-flow">
+    <div class="flow-step">
+      <span class="flow-num">01</span>
+      <div class="flow-title">ICP Mapping</div>
+      <div class="flow-body">Define target segments by behavior, signal, and need. 3-segment framework per campaign.</div>
+    </div>
+    <div class="flow-step">
+      <span class="flow-num">02</span>
+      <div class="flow-title">Signal Sourcing</div>
+      <div class="flow-body">Find prospects where they're already talking — communities, LinkedIn, Slack. Prioritize intent signals.</div>
+    </div>
+    <div class="flow-step">
+      <span class="flow-num">03</span>
+      <div class="flow-title">Qualification</div>
+      <div class="flow-body">Behavioral forms + BANT/SPIN criteria filter before any discovery call is scheduled.</div>
+    </div>
+    <div class="flow-step">
+      <span class="flow-num">04</span>
+      <div class="flow-title">Outreach + Sequence</div>
+      <div class="flow-body">Personalized first touch (signal-based) → automated follow-up sequence via Brevo/Apollo.</div>
+    </div>
+    <div class="flow-step">
+      <span class="flow-num">05</span>
+      <div class="flow-title">Pipeline &amp; Reporting</div>
+      <div class="flow-body">Track every lead: responses, calls booked, pipeline stage, revenue closed. Weekly reporting dashboard.</div>
+    </div>
+  </div>
+
+  <div style="margin-top: 3.5rem;">
+    <div class="section-label">Tools &amp; Stack</div>
+    <div class="tools-category">
+      <div class="tool-cat">Prospecting &amp; Enrichment</div>
+      <div class="tools-grid">
+        <div class="tool-pill"><span class="tool-dot"></span>Apollo.io</div>
+        <div class="tool-pill"><span class="tool-dot"></span>Clay</div>
+        <div class="tool-pill"><span class="tool-dot"></span>Hunter.io</div>
+        <div class="tool-pill"><span class="tool-dot"></span>LinkedIn Sales Nav</div>
+      </div>
+    </div>
+    <div class="tools-category">
+      <div class="tool-cat">Outreach &amp; Automation</div>
+      <div class="tools-grid">
+        <div class="tool-pill"><span class="tool-dot amber"></span>Brevo</div>
+        <div class="tool-pill"><span class="tool-dot amber"></span>Zapier</div>
+        <div class="tool-pill"><span class="tool-dot amber"></span>Flodesk</div>
+        <div class="tool-pill"><span class="tool-dot amber"></span>Google Forms</div>
+      </div>
+    </div>
+    <div class="tools-category">
+      <div class="tool-cat">CRM &amp; Tracking</div>
+      <div class="tools-grid">
+        <div class="tool-pill"><span class="tool-dot dim"></span>Notion</div>
+        <div class="tool-pill"><span class="tool-dot dim"></span>Google Sheets</div>
+        <div class="tool-pill"><span class="tool-dot dim"></span>HubSpot</div>
+        <div class="tool-pill"><span class="tool-dot dim"></span>Airtable</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS DASHBOARD -->
+<section id="metrics">
+  <div class="section-label">Metrics &amp; Impact</div>
+  <h2>Numbers across the portfolio.</h2>
+  <p style="color: var(--text-muted); margin-bottom: 2.5rem; max-width: 560px;">
+    Across every role, I track what matters: leads generated, calls booked, pipeline value,
+    and closed revenue. Here's the aggregate view.
+  </p>
+
+  <div class="dash-grid">
+    <div class="dash-card">
+      <h3>Pipeline Generated by Role</h3>
+      <div class="dash-row">
+        <div class="dash-label">MyCofoundr.AI</div>
+        <div class="dash-bar-wrap"><div class="dash-bar" style="width: 100%"></div></div>
+        <div class="dash-val">12,000+</div>
+      </div>
+      <div class="dash-row">
+        <div class="dash-label">AIESEC Enugu</div>
+        <div class="dash-bar-wrap"><div class="dash-bar amber" style="width: 62%"></div></div>
+        <div class="dash-val">30+/yr</div>
+      </div>
+      <div class="dash-row">
+        <div class="dash-label">AIESEC Rwanda</div>
+        <div class="dash-bar-wrap"><div class="dash-bar" style="width: 40%"></div></div>
+        <div class="dash-val">120+</div>
+      </div>
+      <div class="dash-row">
+        <div class="dash-label">AIESEC Stockholm</div>
+        <div class="dash-bar-wrap"><div class="dash-bar amber" style="width: 28%"></div></div>
+        <div class="dash-val">90% ret.</div>
+      </div>
+    </div>
+
+    <div class="dash-card">
+      <h3>Key Performance Indicators</h3>
+      <div class="kpi-grid">
+        <div class="kpi-item">
+          <span class="kpi-num">12K+</span>
+          <div class="kpi-label">Total qualified leads</div>
+        </div>
+        <div class="kpi-item">
+          <span class="kpi-num">400%</span>
+          <div class="kpi-label">Max pipeline growth rate</div>
+        </div>
+        <div class="kpi-item">
+          <span class="kpi-num">90%</span>
+          <div class="kpi-label">B2B retention (Stockholm)</div>
+        </div>
+        <div class="kpi-item">
+          <span class="kpi-num">100%</span>
+          <div class="kpi-label">On-time delivery (Nanocodes)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dash-card">
+      <h3>AIESEC Rwanda — Funnel Breakdown</h3>
+      <div class="dash-row">
+        <div class="dash-label">Sign-ups / Inbound</div>
+        <div class="dash-bar-wrap"><div class="dash-bar" style="width: 100%"></div></div>
+        <div class="dash-val">120+</div>
+      </div>
+      <div class="dash-row">
+        <div class="dash-label">Qualified (form filter)</div>
+        <div class="dash-bar-wrap"><div class="dash-bar" style="width: 54%"></div></div>
+        <div class="dash-val">~65</div>
+      </div>
+      <div class="dash-row">
+        <div class="dash-label">Warm pipeline</div>
+        <div class="dash-bar-wrap"><div class="dash-bar amber" style="width: 42%"></div></div>
+        <div class="dash-val">50+</div>
+      </div>
+      <div class="dash-row">
+        <div class="dash-label">Paying customers</div>
+        <div class="dash-bar-wrap"><div class="dash-bar" style="width: 12%"></div></div>
+        <div class="dash-val">15</div>
+      </div>
+    </div>
+
+    <div class="dash-card">
+      <h3>Qualification Method by Role</h3>
+      <div class="dash-row">
+        <div class="dash-label">Behavioral form (Rwanda)</div>
+        <div class="dash-bar-wrap"><div class="dash-bar" style="width: 100%"></div></div>
+        <div class="dash-val">Custom</div>
+      </div>
+      <div class="dash-row">
+        <div class="dash-label">ICP segmentation (MyCofoundr)</div>
+        <div class="dash-bar-wrap"><div class="dash-bar amber" style="width: 85%"></div></div>
+        <div class="dash-val">BANT</div>
+      </div>
+      <div class="dash-row">
+        <div class="dash-label">SPIN framework (Enugu)</div>
+        <div class="dash-bar-wrap"><div class="dash-bar" style="width: 70%"></div></div>
+        <div class="dash-val">SPIN</div>
+      </div>
+      <div class="dash-row">
+        <div class="dash-label">Relationship / retention (Stockholm)</div>
+        <div class="dash-bar-wrap"><div class="dash-bar amber" style="width: 55%"></div></div>
+        <div class="dash-val">QBR</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-label" style="text-align: center; display: block;">Contact</div>
+    <h2>Let's build pipeline together.</h2>
+    <p class="sub">
+      If you're looking for someone who can own the full outbound motion —
+      from ICP research to closed revenue — I'd like to talk.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:your@email.com" class="contact-link">
+        <span class="cl-label">Email</span> your@email.com
+      </a>
+      <a href="https://linkedin.com/in/yourprofile" target="_blank" class="contact-link">
+        <span class="cl-label">LinkedIn</span> /in/yourprofile
+      </a>
+      <a href="#" class="contact-link">
+        <span class="cl-label">Location</span> Kigali, Rwanda
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Built to prove pipeline — not just describe it.
+</footer>
+
+</body>
+</html>
